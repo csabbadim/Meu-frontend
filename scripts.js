@@ -300,6 +300,8 @@ const newItem = () => {
     alert('Você precisa preencher se já leu ou não com os valores "sim" ou "não".');
   } else if (inputPrevisaoLeitura === '') {
     alert("Preencha o campo com a data que leu esse livro, ou que pretender ler!");
+  } else if (!isValidDateFormat(inputPrevisaoLeitura)) {
+    alert("Por favor, insira uma data válida no formato dd/mm/yyyy para a previsão de leitura.");
   }
   else {
     insertList(inputLivro, inputAutor, inputQuerLer, inputJaLido, inputPrevisaoLeitura)
@@ -341,3 +343,9 @@ const insertList = (nome_livro, nome_autor, ja_lido, quer_ler, previsao_leitura)
   atualizaData();
   removeElement();
 };
+
+//função para verificar que a data está no formato correto
+function isValidDateFormat(dateString) {
+  var regex = /^\d{2}\/\d{2}\/\d{4}$/;
+  return regex.test(dateString);
+}

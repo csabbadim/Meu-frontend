@@ -87,6 +87,23 @@ const removeElement = () => {
 
 /*
   --------------------------------------------------------------------------------------
+  Função para deletar um item da lista do servidor via requisição DELETE
+  --------------------------------------------------------------------------------------
+*/
+const deleteItem = (item) => {
+  console.log(item)
+  let url = 'http://127.0.0.1:5000/livro?nome_livro=' + item;
+  fetch(url, {
+    method: 'delete'
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+/*
+  --------------------------------------------------------------------------------------
   Função para criar um checkbox para a coluna "Quer Ler" para cada item da lista
   --------------------------------------------------------------------------------------
 */
@@ -123,6 +140,23 @@ const atualizaQuerLer = () => {
       atualizaItemQuerLer(nomeItem, quer_ler)
     }
   }
+}
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para alterar o campo quer_ler via requisição PUT
+  --------------------------------------------------------------------------------------
+*/
+const atualizaItemQuerLer = (item, quer_ler) => {
+  console.log(item)
+  let url = 'http://127.0.0.1:5000/alteralivro?nome_livro=' + item + '&quer_ler=' + quer_ler;
+  fetch(url, {
+    method: 'put'
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 }
 
 /*
@@ -167,6 +201,23 @@ const atualizaJaLido = () => {
 
 /*
   --------------------------------------------------------------------------------------
+  Função para alterar o campo ja_lido via requisição PUT
+  --------------------------------------------------------------------------------------
+*/
+const atualizaItemJaLido = (item, ja_lido) => {
+  console.log(ja_lido)
+  let url = 'http://127.0.0.1:5000/alteralivro?nome_livro=' + item + '&ja_lido=' + ja_lido;
+  fetch(url, {
+    method: 'put'
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+/*
+  --------------------------------------------------------------------------------------
   Função para criar um campo editável de data para cada item da lista
   --------------------------------------------------------------------------------------
 */
@@ -200,58 +251,6 @@ const atualizaData = () => {
       atualizaPrevisaoLeitura(nomeItem, previsaoLeitura.firstChild.value)
     }
   }
-}
-
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para deletar um item da lista do servidor via requisição DELETE
-  --------------------------------------------------------------------------------------
-*/
-const deleteItem = (item) => {
-  console.log(item)
-  let url = 'http://127.0.0.1:5000/livro?nome_livro=' + item;
-  fetch(url, {
-    method: 'delete'
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-}
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para alterar o campo quer_ler via requisição PUT
-  --------------------------------------------------------------------------------------
-*/
-const atualizaItemQuerLer = (item, quer_ler) => {
-  console.log(item)
-  let url = 'http://127.0.0.1:5000/alteralivro?nome_livro=' + item + '&quer_ler=' + quer_ler;
-  fetch(url, {
-    method: 'put'
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-}
-
-/*
-  --------------------------------------------------------------------------------------
-  Função para alterar o campo ja_lido via requisição PUT
-  --------------------------------------------------------------------------------------
-*/
-const atualizaItemJaLido = (item, ja_lido) => {
-  console.log(ja_lido)
-  let url = 'http://127.0.0.1:5000/alteralivro?nome_livro=' + item + '&ja_lido=' + ja_lido;
-  fetch(url, {
-    method: 'put'
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error('Error:', error);
-    });
 }
 
 /*
@@ -344,7 +343,11 @@ const insertList = (nome_livro, nome_autor, ja_lido, quer_ler, previsao_leitura)
   removeElement();
 };
 
-//função para verificar que a data está no formato correto
+/*
+  --------------------------------------------------------------------------------------
+  Função para verificar que a data está no formato correto
+  --------------------------------------------------------------------------------------
+*/
 function isValidDateFormat(dateString) {
   var regex = /^\d{2}\/\d{2}\/\d{4}$/;
   return regex.test(dateString);
